@@ -4,19 +4,24 @@ $(document).ready(function () {
 
     //메뉴열기 클릭
     $('.btn_menu').on('click', function () {
-        $gnb.before('<div id="dim"></div>');
-        var $dim = $('#dim');
 
         if ($(this).hasClass('active')) {
             $gnb.stop().animate({
-                left: 0
+                left: '-100%'
             }, 300, function () {
                 $(this).css({
                     visibility: 'hidden'
                 }).find('ul.fold li.on').removeClass('on').children('ul').stop().slideUp();
             });
             $(this).removeClass('active').find('sr-only').text('메뉴 열기');
+            $('#dim').stop().fadeOut(function () {
+                $(this).remove();
+            });
         } else { //열기
+            $gnb.before('<div id="dim"></div>');
+            var $dim = $('#dim');
+            $dim.stop().fadeIn('slow');
+
             $(this).addClass('active').find('sr-only').text('메뉴 닫기');
 
             var $first = $gnb.find('[data-link="first"]');
