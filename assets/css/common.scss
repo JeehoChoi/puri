@@ -42,7 +42,7 @@
         url("../fonts/AvenirLTStd-Heavy.woff2") format("woff2"),
         url("../fonts/AvenirLTStd-Heavy.ttf") format("truetype");
 }
-body, h1, h2, h3, h4, h5, h6, p, ul, button{padding: 0;margin: 0;}
+body, h1, h2, h3, h4, h5, h6, p, ul, button, figure{padding: 0;margin: 0;}
 h1, h2, h3, h4, h5, h6{font-family: ave;color: $blue;}
 ul{list-style: none;}
 a:link, a:visited, a:hover, a:active{text-decoration: none;color: inherit;}
@@ -58,6 +58,7 @@ header, nav, section, article, footer{display: block;}
 .p_a{position: absolute;}
 .clearfix::after{content: "";display: block;clear: both;}
 .sr-only{position: absolute;top: 0;left: -9999px;}
+.nonvisible{visibility: hidden;}
 .area{padding-left: 16px;padding-right: 16px;}
 .menu_area{margin: 70px 20px 20px;}
 .boxarea{
@@ -84,15 +85,11 @@ svg {
     &#logo, &#logoIcon{
         .st3{fill: $blue;}
     }
-    &#cartIcon, &#cart{
-        .st0{stroke-width: 7;}
-        .st1{stroke-width: 6;}
-    }
-    &#searchIcon, &#searchIcon2{
+    &#homeIcon, &#cartIcon, &#searchIcon, &#searchIcon2, &#align, &#view, &.icon_cart, &.icon_like, &.review{
         .st0{stroke-width: 7;}
         .st1{stroke-width: 7;}
     }
-    &#homeIcon, &#order, &#like, &#recent, &#align, &#view, &.icon_cart, &.icon_like, &.review{
+    &#cart, &#order, &#like, &#recent{
         .st0 {stroke-width: 6;}
         .st1 {stroke-width: 6;}
     }
@@ -152,7 +149,7 @@ svg {
 #gnb{
     position: fixed;top: 0;left: -1000px;bottom: 0;background: #fff;overflow-y: auto;z-index: 900;width: 87%;max-width: 360px;min-width: 287px;
     .logo{
-        top: 13px;left: 50%;margin-left: -56px;height: 54px;
+        top: 10px;left: 50%;margin-left: -56px;height: 54px;
         #logoIcon{height: 100%;}
     }
     #homeIcon{position: absolute;top: 20px;right: 20px;height: 27px;}
@@ -256,7 +253,8 @@ svg {
                 screen and (min-resolution: 3dpi),
                 screen and (min-resolution: 3dppx) {
                     &.bnr1{background-image: url("../images/main/main_banner1x3.jpg");}
-                    &.bnr2{background-image: url("../images/main/main_banner2x3.jpg");}
+                    &.bnr2{background-image: url("../images/main/main_banner3x3.jpg");}
+                    &.bnr3{background-image: url("../images/main/main_banner2x3.jpg");}
                 }
             }
         }
@@ -336,7 +334,10 @@ svg {
         height: 100%;width: 100%;position: relative;
         .swiper-slide{
             width: 100%;height: 100%;
-            img{height: 55%;}
+            figure{
+                height: 55%;overflow: hidden;
+                img{width: 100%;min-width: 395px;}
+            }
             div{
                 height: 45%;background: $mint;color: #fff;padding: 16px;letter-spacing: 2px;
                 span{font-size: 50px;font-weight: 300;letter-spacing: 5px;}
@@ -364,7 +365,7 @@ svg {
         .tab.active{background: $darkgray;color: #fff;}
     }
     .tabpanel{
-        div{
+        div:first-child{
             @include bgcover(cover);
             height: 100px;width: 100%;background: no-repeat center;position: relative;margin: 20px 0;
             &::before{
@@ -386,21 +387,23 @@ svg {
         }
         ul li{
             position: relative;height: 300px;
-            strong, p{position: absolute;right: 0;text-align: right;line-height: 1.5;letter-spacing: 1px;}
-            strong{font-size: 20px;top: 60px;}
-            p{font-size: 15px;padding-top: 10px;width: 80%;}
+            strong, p{text-align: right;line-height: 1.5;position: absolute;right: 0;}
+            strong{letter-spacing: 2px;top: 20%;font-size: 18px;}
+            p{font-size: 15px;padding: 15px 0 35px;letter-spacing: 1px;width: 90%;}
             &.even{
-                strong, p{left: 0;text-align: left;}
-                p{top: 140px;}
+                strong, p{text-align: left;}
+                strong{left: 0;}
+                p{margin-left: 0;left: 0;top: 133px;}
                 img{position: absolute;right: 0;}
             }
+            img{width: 70%;max-width: 350px;}
         }
     }
 }
 
 /* skincare page */
 .skincare_visual{
-    width: 100%;height: 160px;text-align: center;color: #ffffff;letter-spacing: 3px;
+    width: 100%;height: 130px;text-align: center;color: #ffffff;letter-spacing: 3px;
     @include bgcover(cover);
     @media 
         screen and (-webkit-min-device-pixel-ratio: 3),
@@ -408,8 +411,8 @@ svg {
         screen and (min-resolution: 3dppx) {
             &{background-image: url("../images/product_skincare/skincare_visualx3.jpg")}   
         }
-    h3{font-size: 34px;position: absolute;bottom: 45px;color: #ffffff;font-family: ave;font-weight: 300;left: 0px;width: 100%;letter-spacing: 6px;}
-    p{padding-top: 42px;font-size: 17px;}
+    h3{font-size: 34px;position: absolute;bottom: 26px;color: #ffffff;font-family: ave;font-weight: 300;left: 0px;width: 100%;letter-spacing: 6px;}
+    p{padding-top: 38px;font-size: 17px;}
 }
 .controls{
     @include borderBox;
@@ -436,28 +439,35 @@ svg {
     }
 }
 .product_items ul{
-    margin-top: 20px;display: flex;flex-wrap: wrap;
+    display: flex;flex-wrap: wrap;min-width: 320px;justify-content: space-between;margin: 20px 10px 0;
     li{
         @include borderBox;
-        width: 50%;margin-bottom: 30px;position: relative;
-        &:nth-child(even){
-            padding-left: 10px;
-            .item_txt{margin-left: 10px;}
+        @media screen and (max-width: 660px) {
+            &{width: 33.333%;}
         }
-        .item_txt{
-            @include radius(0 0 10px 10px);
+        @media screen and (max-width: 480px) {
+            &{width: 50%;}
+        }
+        width: 25%;margin-bottom: 30px;padding: 6px;
+        .boxarea{
             @include borderBox;
-            position: absolute;top: 152px;height: 55px;left: 0;background: rgba(255, 255, 255, 0.8);width: 98.5%;letter-spacing: 2px;padding: 5px;
-            .price{
-                margin-top: 5px;text-align-last: right;font-size: 15px;
-                .dc{text-decoration: line-through;color: #777777;font-size: 12px;margin-right: 6px;}
+            position: relative;overflow: hidden;width: 100%;min-width: 135px;
+            img{height: 100%;width: 100%;}
+            .item_txt{
+                @include borderBox;
+                position: absolute;bottom: 0;height: 55px;left: 0;background: rgba(255, 255, 255, 0.8);width: 100%;letter-spacing: 2px;padding: 7px 5px;
+                p:first-child{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%;}
+                .price{
+                    margin-top: 5px;text-align-last: right;font-size: 16px;position: relative;
+                    .dc{text-decoration: line-through;color: #777777;font-size: 12px;margin-right: 6px;position: absolute;left: 0;}
+                }
             }
         }
         .iconbox{
             height: 40px;margin-top: 10px;
             .icon{
                 display: inline-block;width: 35px;height: 35px;margin-right: 5px;
-                svg{height: 63%;margin: 6.5px 5.5px;}
+                svg{height: 60%;margin: 7px 5px;}
             }
         }
     }

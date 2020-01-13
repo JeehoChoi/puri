@@ -84,7 +84,6 @@ $(document).ready(function () {
         $search.stop().slideUp(200);
     });
 
-
     // swiper
     var bnrSwiper = new Swiper('.main_visual_bnr .swiper-container', {
         slidesPerView: 'auto',
@@ -167,4 +166,16 @@ $(document).ready(function () {
         $('#' + $target.attr('aria-controls')).addClass('active').attr({'aria-hidden': false, tabIndex: 0}).siblings('.tabpanel').removeClass('active').attr({'aria-hidden': true, tabIndex: -1});
     }
 
+    //sub pages
+    var $brandTab = $('#brandTab .tabpanel ul li');
+    var tabimgsize = $brandTab.find('img').outerHeight(true);
+    console.log(tabimgsize);
+    $brandTab.find('img').addClass('boxarea');
+    
+    $(window).on('resize', function () {
+        if (tabimgsize > 133) $brandTab.hasClass('even').children('p').css({top: tabimgsize});
+
+        if ($('#skincareItems .price').width() < 150) $('#skincareItems .price .dc').addClass('nonvisible');
+        else $('#skincareItems .price .dc').removeClass('nonvisible');    
+    });
 });
